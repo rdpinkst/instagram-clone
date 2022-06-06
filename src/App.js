@@ -1,9 +1,10 @@
 import './App.css';
+import SignIn from './components/Sign-in';
 
 function App() {
   return (
     <div className="App">
-     <h1>El-Instagram Clone</h1>
+     <SignIn />
     </div>
   );
 }
