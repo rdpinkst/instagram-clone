@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import gramPic from "../pictures/gram.jpg";
 import "./Sign-in.css";
 
@@ -36,7 +37,7 @@ function SignIn() {
         </form>
         <div className="account-have">
           <p className="center-txt">
-            Don't have an account? <span>Sign-up</span>
+            Don't have an account? <Link to="/sign-up">Sign-up</Link>
           </p>
         </div>
       </div>

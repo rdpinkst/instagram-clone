@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./SignUp.css";
 
 function SignUp() {
@@ -20,7 +21,7 @@ function SignUp() {
         </form>
       <div className="account-have">
         <p className="center-txt">
-          Have an account? <span>Log in</span>
+          Have an account? <Link to="/">Log in</Link>
         </p>
       </div>
     </div>
