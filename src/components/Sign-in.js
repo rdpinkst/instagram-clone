@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 import gramPic from "../pictures/gram.jpg";
 import "./Sign-in.css";
 
 function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  const logIn = async(e) => {
+    e.preventDefault();
+    if(email && password){
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user)
+          console.log("logged on")
+        })
+        .catch((error) => {
+          console.log(error.message);
+        })
+    } else return;
+  }
+
   return (
     <div className="signIn-page">
       <div className="pic-gram">
@@ -20,14 +41,20 @@ function SignIn() {
         </p>
       </div>
       <div className="sign-in">
-        <form className="sign">
+        <form className="sign" onSubmit={logIn}>
           <h1 className="title-form">El-Instagram Clone</h1>
           <input
             className="sign-form"
             type="email"
             placeholder="Email address"
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <input className="sign-form" type="password" placeholder="Password" />
+          <input
+            className="sign-form"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button className="log-in" type="submit">
             Log in
           </button>
