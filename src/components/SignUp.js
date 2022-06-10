@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import "./SignUp.css";
@@ -8,6 +8,7 @@ function SignUp() {
   const [newEmail, setNewEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [newAccount, setNewAccount] = useState({});
 
   const checkPasswords = (set, confirm) => {
     return set === confirm;
@@ -19,7 +20,7 @@ function SignUp() {
       createUserWithEmailAndPassword(auth, newEmail, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          setNewAccount(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -31,6 +32,7 @@ function SignUp() {
 
   return (
     <div className="sign-up">
+      {newAccount?.email && <Navigate to="/home" replace={true} />}
       <form className="create-user" onSubmit={register}>
         <h1 className="title-form">El Instagram Clone</h1>
         <p className="description-site">
