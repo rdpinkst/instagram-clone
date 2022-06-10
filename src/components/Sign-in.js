@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import gramPic from "../pictures/gram.jpg";
@@ -8,6 +8,8 @@ import "./Sign-in.css";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
 
   const logIn = async(e) => {
@@ -16,17 +18,20 @@ function SignIn() {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user)
+          setUser(user);
           console.log("logged on")
         })
         .catch((error) => {
-          console.log(error.message);
+          setErrorMessage(error.message);
         })
     } else return;
   }
 
   return (
     <div className="signIn-page">
+      {user?.email && (
+        <Navigate to="/home" replace={true} />
+      )}
       <div className="pic-gram">
         <img src={gramPic} alt="Phone with Instagram on." />
         <p className="photo-att">
@@ -43,6 +48,7 @@ function SignIn() {
       <div className="sign-in">
         <form className="sign" onSubmit={logIn}>
           <h1 className="title-form">El-Instagram Clone</h1>
+          {errorMessage && <p>{errorMessage}</p>}
           <input
             className="sign-form"
             type="email"
