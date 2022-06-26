@@ -5,10 +5,10 @@ import { auth } from "../firebase";
 import gramPic from "../pictures/gram.jpg";
 import "./Sign-in.css";
 
-function SignIn() {
+function SignIn({user, setUser}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
 
@@ -20,6 +20,7 @@ function SignIn() {
           const user = userCredential.user;
           setUser(user);
           console.log("logged on")
+          console.log(userCredential)
         })
         .catch((error) => {
           setErrorMessage(error.message);

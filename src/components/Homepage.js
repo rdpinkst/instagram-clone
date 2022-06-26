@@ -5,12 +5,13 @@ import { Navigate } from "react-router-dom";
 import HomeNavbar from "./HomeNavbar";
 import "./Homepage.css";
 
-function Homepage() {
+function Homepage({user, setUser}) {
   const [signedOut, setSignedOut] = useState(false);
-
+ 
   const logOut = async () => {
     signOut(auth)
       .then(() => {
+        setUser({})
         setSignedOut(true);
         console.log("Logged Out");
       })
@@ -24,7 +25,7 @@ function Homepage() {
       <HomeNavbar />
       {signedOut && <Navigate to="/" replace={true} />}
       <div className="content">
-        <h1>Logged in</h1>
+        <h1>{user.email} is Logged in</h1>
         <button onClick={logOut}>Sign Out</button>
       </div>
     </div>
