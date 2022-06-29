@@ -19,3 +19,31 @@
     align-self: center;
     padding-bottom: 2rem;
 }
+.profile-pic{
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: aquamarine;
+    margin-right: 0.5rem;
+}
+.comment{
+    display: flex;
+    margin:0.5rem;
+    align-items: center;
+}
+.user{
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.like-comment{
+    display: flex;
+}
+.icon{
+    margin: 0 0 0.5rem 0.75rem;
+}
+.description-post{
+    margin-left: 0.5rem;
+    font-size: 1.5rem;
+}
