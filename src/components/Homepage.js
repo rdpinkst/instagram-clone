@@ -3,8 +3,7 @@ import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import HomeNavbar from "./HomeNavbar";
-import Post from "./Post"
-import "./Homepage.css";
+import Post from "./Post";
 
 const firstPost = {
   uid: 1,

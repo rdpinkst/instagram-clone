@@ -7,6 +7,112 @@
     height: 100vh;
     background-color: #F8FAFC;
 }
+.page{
+    width: 100vw;
+    min-height: 100vh;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding-bottom: 2rem;
+}
+.sign-in{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    align-self: center;
+}
+.sign{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 1.5rem;
+    background-color: #fff;
+}
+.title-form{
+    margin: 3rem auto;
+}
+.sign-form{
+    margin-bottom: 0.5rem;
+    padding: 0.3rem;
+}
+.log-in{
+    margin: 1rem 0 2rem 0;
+    background-color: #467fd0;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    padding: 0.5rem;
+}
+.pic-gram{
+    object-fit: contain;
+    align-self: center;
+    margin-right: 2rem;
+}
+img{
+    width: 30rem;
+    height: 40rem;
+}
+.signIn-page{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.guest-btn{
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid black;
+    padding: 2rem 0 0.5rem 0;
+}
+.guest-sign{
+    background-color: #467fd0;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    padding: 0.5rem;
+}
+span{
+    color: red;
+}
+.account-have{
+    border: 1px solid black;
+    margin: 1.5rem 0;
+    padding: 1.5rem 0;
+    background-color: #fff;
+}
+.center-txt{
+    text-align: center;
+    font-size: 1.2rem;
+}
+.sign-up{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    align-self: center;
+}
+.create-user{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 1.5rem;
+    background-color: #fff;
+}
+.btn-signup{
+    margin: 1rem 0 2rem 0;
+    background-color: #467fd0;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    padding: 0.5rem;
+}
+.description-site{
+    margin-bottom: 2rem;
+    text-align: center;
+}
 .postContainer{
     width: 50%;
     display: flex;
@@ -46,4 +152,20 @@
 .description-post{
     margin-left: 0.5rem;
     font-size: 1.5rem;
+}
+nav{
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+}
+.profile-links{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    align-items: center;
+    width: 20vw;
+}
+.site-title{
+    font-size: 2rem;
 }

@@ -3,7 +3,6 @@ import { Link, Navigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import gramPic from "../pictures/gram.jpg";
-import "./Sign-in.css";
 
 function SignIn({user, setUser}) {
   const [email, setEmail] = useState("");
