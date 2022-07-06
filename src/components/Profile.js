@@ -16,11 +16,11 @@ function Profile() {
             </div>
             <div className="data">
                 <p className="number">#</p>
-                <p className="data-name">Posts</p>
+                <p className="data-name">Followers</p>
             </div>
             <div className="data">
                 <p className="number">#</p>
-                <p className="data-name">Posts</p>
+                <p className="data-name">Following</p>
             </div>
         </div>
     </div>

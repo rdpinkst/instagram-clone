@@ -211,9 +211,16 @@ nav{
     text-align: center;
 }
 .user-info{
-    min-height: 100%;
+    min-height: 6rem;
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 5rem;
+}
+.editable-profile{
+    width: 100vw;
+}
+.user-info{
+    display: flex;
+    justify-content: center;
 }
