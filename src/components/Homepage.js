@@ -3,6 +3,8 @@ import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import HomeNavbar from "./HomeNavbar";
+import Profile from "./Profile";
+import { Route, Routes } from "react-router-dom";
 import Post from "./Post";
 
 const firstPost = {

@@ -130,8 +130,12 @@ span{
     width: 2rem;
     border: 1px solid black;
     border-radius: 50%;
-    background-color: aquamarine;
+    background-color: rgb(179, 175, 175);
     margin-right: 0.5rem;
+    font-size: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .comment{
     display: flex;
@@ -168,4 +172,48 @@ nav{
 }
 .site-title{
     font-size: 2rem;
+}
+.no-pic{
+    text-align: center;
+    color: black;
+}
+.bigger-pic{
+    height: 5rem;
+    width: 5rem;
+    font-size: 1rem;
+    position: relative;
+}
+.add-pic{
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -.1rem;
+    right: -0.2rem;
+    background-color: #467fd0;
+}
+.add{
+    color: black;
+}
+.post-data{
+    display: flex;
+    justify-content: space-around;
+    width: 33%;
+    height: 5rem;
+    margin-left: 7rem;
+    align-items: center;
+}
+.number{
+    text-align: center;
+}
+.user-info{
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
 }
