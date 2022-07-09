@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { Navigate } from "react-router-dom";
-import HomeNavbar from "./HomeNavbar";
-import Profile from "./Profile";
-import { Route, Routes } from "react-router-dom";
 import Post from "./Post";
 
 const firstPost = {
@@ -13,9 +10,13 @@ const firstPost = {
   caption: "This is the first post",
   comments: [
     { userName: "James", message: "Awesome Post", uid: 1 },
-    { userName: "Jamie", message: "Awesome Post, learning spanish too", uid:2 },
+    {
+      userName: "Jamie",
+      message: "Awesome Post, learning spanish too",
+      uid: 2,
+    },
   ],
-  likes: ["James", "Jamie", "Charles", "Shawn"]
+  likes: ["James", "Jamie", "Charles", "Shawn"],
 };
 
 function Homepage({ user, setUser }) {
@@ -25,7 +26,7 @@ function Homepage({ user, setUser }) {
   const logOut = async () => {
     signOut(auth)
       .then(() => {
-        setUser({});
+        setUser("");
         setSignedOut(true);
         console.log("Logged Out");
       })
@@ -34,17 +35,20 @@ function Homepage({ user, setUser }) {
       });
   };
 
-  return (
-    <div className="page">
-      <HomeNavbar />
-      {signedOut && <Navigate to="/" replace={true} />}
-      <div className="content">
-        <Post postData={postData} />
-        <h1>{user.email} is Logged in</h1>
-        <button onClick={logOut}>Sign Out</button>
+  if (user) {
+    return (
+      <div className="page">
+        <div className="content">
+          <Post postData={postData} />
+          <h1>{user.email} is Logged in</h1>
+          <button onClick={logOut}>Sign Out</button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  if (signedOut) {
+    return <Navigate to="/" replace={true} />;
+  }
 }
 
 export default Homepage;

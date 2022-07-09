@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function HomeNavbar() {
   return (
     <nav>
-      <h1 className="site-title">El-Instagram Clone</h1>
+      <h1 className="site-title"><Link to="/home">El-Instagram Clone</Link></h1>
       <ul className="profile-links">
         <li>Add pic</li>
         <li>

@@ -4,34 +4,30 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import gramPic from "../pictures/gram.jpg";
 
-function SignIn({user, setUser}) {
+function SignIn({ user, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
-
-  const logIn = async(e) => {
+  const logIn = async (e) => {
     e.preventDefault();
-    if(email && password){
+    if (email && password) {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           setUser(user);
-          console.log("logged on")
-          console.log(userCredential)
+          console.log("logged on");
+          console.log(userCredential);
         })
         .catch((error) => {
           setErrorMessage(error.message);
-        })
+        });
     } else return;
-  }
+  };
 
   return (
     <div className="signIn-page">
-      {user?.email && (
-        <Navigate to="/home" replace={true} />
-      )}
+      {user?.email && <Navigate to="/home" replace={true} />}
       <div className="pic-gram">
         <img src={gramPic} alt="Phone with Instagram on." />
         <p className="photo-att">
