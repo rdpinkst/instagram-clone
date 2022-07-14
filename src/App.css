@@ -53,7 +53,7 @@
     align-self: center;
     margin-right: 2rem;
 }
-img{
+.instagram-img{
     width: 30rem;
     height: 40rem;
 }
@@ -230,10 +230,14 @@ nav{
 .pic-tile{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: .5rem;
 }
-/* .individual-pic{
-    object-fit: contain;
-} */
+.individual-pic{
+    width: 100%;
+    height: 300px;
+}
 .trying-it{
-    object-fit: contain;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }

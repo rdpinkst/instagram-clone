@@ -29,7 +29,7 @@ function SignIn({ user, setUser }) {
     <div className="signIn-page">
       {user?.email && <Navigate to="/home" replace={true} />}
       <div className="pic-gram">
-        <img src={gramPic} alt="Phone with Instagram on." />
+        <img className="instagram-img" src={gramPic} alt="Phone with Instagram on." />
         <p className="photo-att">
           Photo by{" "}
           <a href="https://unsplash.com/@neonbrand?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
