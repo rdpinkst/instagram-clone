@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Profile from "./Profile";
 import TilePictures from "./TilePictures";
-import {Navigate} from "react-router-dom";
+import PictureSelectView from "./PictureSelectView";
+import { Navigate } from "react-router-dom";
 
 function ProfileInfo({ user }) {
+  const [picUrl, setPicUrl] = useState("");
+
   if (user) {
     return (
       <div className="editable-profile">
@@ -12,11 +15,12 @@ function ProfileInfo({ user }) {
           <p>This is the info about person</p>
           <button className="log-in">Edit Profile</button>
         </div>
-        <TilePictures />
+        <TilePictures setPicUrl={setPicUrl} />
+        {picUrl && <PictureSelectView picUrl={picUrl} />}
       </div>
     );
   }
-  if(!user){
+  if (!user) {
     return <Navigate to="/" replace={true} />;
   }
 }

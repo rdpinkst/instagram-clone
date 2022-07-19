@@ -19,12 +19,12 @@ const picArray = [
   seventhPic,
 ];
 
-function TilePictures() {
+function TilePictures({setPicUrl}) {
 
   
   const postedPics = picArray.map((pic, index) => {
     return (
-      <div key={index} className="individual-pic" onClick={() => console.log(pic)}>
+      <div key={index} className="individual-pic" onClick={() => setPicUrl(pic)}>
         <img src={pic} alt="posted pic" className="trying-it"></img>
       </div>
     );

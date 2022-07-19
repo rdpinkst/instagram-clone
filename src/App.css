@@ -249,3 +249,14 @@ nav{
     text-decoration: none;
     color: black;
 }
+.selected-card{
+    position: relative;
+    height: 40vh;
+    width: 80vw;
+    border: 1px solid black;
+}
+.selected-img{
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
