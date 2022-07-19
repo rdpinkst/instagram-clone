@@ -11,25 +11,12 @@ import HomeNavbar from "./components/HomeNavbar";
 
 function App() {
   const [user, setUser] = useState("");
-  const [signedOut, setSignedOut] = useState(false);
   
-
-  const logOut = async () => {
-    signOut(auth)
-      .then(() => {
-        setUser("");
-        setSignedOut(true);
-        console.log("Logged Out");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
 
   return (
     <div className="App">
       <BrowserRouter>
-        {user && <HomeNavbar logOut ={logOut} signedOut={signedOut} />}
+        {user && <HomeNavbar setUser={setUser}  />}
         <Routes>
           <Route path="/" element={<SignIn user={user} setUser={setUser} />} />
           <Route

@@ -226,6 +226,7 @@ nav{
 }
 .user-personal{   
     margin: 1.1rem 5rem;
+    display: flex;
 }
 .pic-tile{
     display: grid;
@@ -240,4 +241,11 @@ nav{
     object-fit: cover;
     width: 100%;
     height: 100%;
+}
+.log-out{
+    cursor: pointer;
+}
+.link-style{
+    text-decoration: none;
+    color: black;
 }

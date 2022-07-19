@@ -32,6 +32,9 @@ function Homepage({ user }) {
       </div>
     );
   }
+  if(!user){
+    return <Navigate to="/" replace={true} />;
+  }
 }
 
 export default Homepage;

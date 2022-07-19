@@ -20,9 +20,11 @@ const picArray = [
 ];
 
 function TilePictures() {
+
+  
   const postedPics = picArray.map((pic, index) => {
     return (
-      <div key={index} className="individual-pic">
+      <div key={index} className="individual-pic" onClick={() => console.log(pic)}>
         <img src={pic} alt="posted pic" className="trying-it"></img>
       </div>
     );

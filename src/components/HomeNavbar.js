@@ -1,28 +1,35 @@
-import React, {useEffect} from "react";
-import { Link, Navigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
-
-function HomeNavbar({ logOut, signedOut }) {
-  // if (signedOut) {
-  //     return <Navigate to="/" replace={true} />;
-  //   }
-  useEffect(() => {
-    if (signedOut) {
-      return <Navigate to="/" replace={true} />;
-    }
-  }, [signedOut]);
+function HomeNavbar({ setUser }) {
+  const logOut = async () => {
+    signOut(auth)
+      .then(() => {
+        setUser("");
+        console.log("Logged Out");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <nav>
       <h1 className="site-title">
-        <Link to="/home">El-Instagram Clone</Link>
+        <Link className="link-style" to="/home">El-Instagram Clone</Link>
       </h1>
       <ul className="profile-links">
         <li>Add pic</li>
-        <li>
-          <Link to="/profile">Profile</Link>
+        <li className="profile-btn">
+          <Link className="link-style" to="/profile">
+            Profile
+          </Link>
         </li>
-        <li onClick={logOut}>Log Out</li>
+        <li className="log-out" onClick={logOut}>
+          Log Out
+        </li>
       </ul>
     </nav>
   );
