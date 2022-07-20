@@ -1,8 +1,6 @@
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "./firebase";
 import SignIn from "./components/Sign-in";
 import SignUp from "./components/SignUp";
 import Homepage from "./components/Homepage";
