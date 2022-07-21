@@ -18,10 +18,14 @@ function HomeNavbar({ setUser }) {
   return (
     <nav>
       <h1 className="site-title">
-        <Link className="link-style" to="/home">El-Instagram Clone</Link>
+        <Link className="link-style" to="/home">
+          El-Instagram Clone
+        </Link>
       </h1>
       <ul className="profile-links">
-        <li>Add pic</li>
+        <li>
+          <Link className="link-style" to="/addpic">Add pic</Link>
+        </li>
         <li className="profile-btn">
           <Link className="link-style" to="/profile">
             Profile

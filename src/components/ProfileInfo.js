@@ -17,7 +17,10 @@ function ProfileInfo({ user }) {
         <Profile />
         <div className="user-personal">
           <p>This is the info about person</p>
-          <button className="log-in">Edit Profile</button>
+          <div className="center-btn">
+            <button className="log-in full-width">Edit Profile</button>
+          </div>
+          
         </div>
         <TilePictures setPicUrl={setPicUrl} />
         {picUrl ? <PictureSelectView picUrl={picUrl} setPicUrl={setPicUrl} /> : null}
