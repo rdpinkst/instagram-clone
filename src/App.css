@@ -271,11 +271,11 @@ nav{
 }
 .close-card{
     color: black;
-    position: relative;
-    left: 48%;
-    top: 1%;
-    font-size: 1.2rem;
+    align-self: flex-end;
+    font-size: 1.5rem;
     cursor: pointer;
+    margin: 10px;
+    font-weight: 700;
 }
 .center-btn{
     display: flex;
@@ -283,4 +283,18 @@ nav{
 }
 .full-width{
     width: 100%;
+}
+.content-pic{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.card-comment{
+    margin: 10rem 2rem 1rem 0;
+
+}
+.bold-text{
+    font-weight: 700;
+    margin-left: 1.1rem;
+    font-size: 1.2rem;
 }
