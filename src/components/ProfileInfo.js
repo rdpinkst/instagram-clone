@@ -6,24 +6,31 @@ import { Navigate } from "react-router-dom";
 
 function ProfileInfo({ user }) {
   const [picUrl, setPicUrl] = useState("");
-  // const backgroundStyle = {
-  //   opacity: picUrl ? "0.3" : "1",
-  // }
+  const [deletePic, setDeletePic] = useState(false);
 
   if (user) {
     return (
-      <div className="editable-profile" >
-        {/* {picUrl && <PictureSelectView picUrl={picUrl} />} */}
+      <div className="editable-profile">
         <Profile />
         <div className="user-personal">
           <p>This is the info about person</p>
           <div className="center-btn">
             <button className="log-in full-width">Edit Profile</button>
           </div>
-          
         </div>
-        <TilePictures setPicUrl={setPicUrl} />
-        {picUrl ? <PictureSelectView picUrl={picUrl} setPicUrl={setPicUrl} /> : null}
+        <TilePictures
+          setPicUrl={setPicUrl}
+          picUrl={picUrl}
+          deletePic={deletePic}
+          setDeletePic={setDeletePic}
+        />
+        {picUrl ? (
+          <PictureSelectView
+            picUrl={picUrl}
+            setPicUrl={setPicUrl}
+            setDeletePic={setDeletePic}
+          />
+        ) : null}
       </div>
     );
   }

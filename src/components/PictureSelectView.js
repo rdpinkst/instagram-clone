@@ -1,10 +1,13 @@
 import React from "react";
 import Icon from "@mdi/react";
-import { mdiHeartOutline, mdiMessageOutline } from "@mdi/js";
+import { mdiHeartOutline, mdiMessageOutline, mdiDotsHorizontal } from "@mdi/js";
 
-function PictureSelectView({ picUrl, setPicUrl }) {
+function PictureSelectView({ picUrl, setPicUrl, setDeletePic }) {
   function clearPicUrl() {
     setPicUrl("");
+  }
+  function deletePic(){
+    setDeletePic(true);
   }
   return (
     <div className="selected-card">
@@ -25,6 +28,7 @@ function PictureSelectView({ picUrl, setPicUrl }) {
           <p className="user">Users Name</p>
           <p>This is a random comment</p>
         </div>
+        <Icon className="icon" onClick={deletePic} path={mdiDotsHorizontal} size={1.1} />
       </div>
     </div>
   );

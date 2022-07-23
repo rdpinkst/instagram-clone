@@ -251,7 +251,7 @@ nav{
 }
 .selected-card{
     display: flex;
-    position: absolute;
+    position: fixed;
     height: 90vh;
     width: 80vw;
     border: 1px solid black;

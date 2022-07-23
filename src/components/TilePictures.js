@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 //pics imported to simulate without having to go to firebase
 import firstPic from "../pictures/alevision-co-3jlUF7-3-4E-unsplash.jpg";
@@ -9,7 +9,7 @@ import fifthPic from "../pictures/simon-hermans-jTzT09l-nw4-unsplash.jpg";
 import sixthPic from "../pictures/tomas-nozina-UP22zkjJGZo-unsplash.jpg";
 import seventhPic from "../pictures/willian-justen-de-vasconcellos-7vKP5BAm8wg-unsplash.jpg";
 
-const picArray = [
+const pics = [
   firstPic,
   secondPic,
   thirdPic,
@@ -19,8 +19,18 @@ const picArray = [
   seventhPic,
 ];
 
-function TilePictures({setPicUrl}) {
+function TilePictures({setPicUrl, picUrl, deletePic, setDeletePic}) {
+  const [picArray, setPicArray] = useState(pics)
 
+  useEffect(() => {
+    if(deletePic){
+      setPicArray(prevState => {
+        return prevState.filter(pic => pic !== picUrl);
+      })
+      setPicUrl("");
+      setDeletePic(false);
+    }
+  }, [deletePic, picUrl, setPicUrl, setDeletePic])
   
   const postedPics = picArray.map((pic, index) => {
     return (
