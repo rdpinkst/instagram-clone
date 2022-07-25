@@ -231,6 +231,7 @@ nav{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: .5rem;
+    margin-bottom: 2rem;
 }
 .individual-pic{
     width: 100%;
@@ -266,7 +267,7 @@ nav{
     width: 100%;
 }
 .picture-container{
-    width: 50%;
+    width: 60%;
     height:100%;
 }
 .close-card{
@@ -287,7 +288,7 @@ nav{
 .content-pic{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
 }
 .card-comment{
     margin: 10rem 2rem 1rem 0;
@@ -301,4 +302,21 @@ nav{
 .preview{
     height:400px;
     width:500px;
+    margin-top: 2rem;
+}
+#description{
+    width: 100%;
+    height: 100px;
+}
+.form-picdesc{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.desc-bold{
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+button{
+    cursor: pointer;
 }

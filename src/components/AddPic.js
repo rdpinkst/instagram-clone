@@ -1,6 +1,7 @@
 import React, {useState} from "react";
+import {Navigate} from "react-router-dom"
 
-function AddPic() {
+function AddPic({user}) {
   const [picUpload, setPicUpload] = useState("")
 
   function getPicUrl(e){
@@ -9,14 +10,25 @@ function AddPic() {
     setPicUpload(picUrl);
   }
 
+  if(user){
   return (
     <div>
       <input onChange={getPicUrl}type="file" />
-      <div className="preview">
+      {picUpload && <div className="preview">
         <img className="selected-img" src={picUpload} alt="pic to upload"/>
-      </div>
+        <form className="form-picdesc">
+          <label for="description" className="desc-bold">Description: </label>
+          <textarea id="description" type="text" /> 
+        </form>
+        <button className="btn-signup full-width">Submit</button>
+      </div>}
     </div>
   );
+  }
+
+  if(!user){
+    return <Navigate to="/" replace={true} />;
+  }
 }
 
 export default AddPic;
