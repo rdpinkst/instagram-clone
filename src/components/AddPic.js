@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import {Navigate} from "react-router-dom"
+import {Navigate} from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiUpload } from '@mdi/js'; 
 
 function AddPic({user}) {
   const [picUpload, setPicUpload] = useState("")
@@ -13,7 +15,11 @@ function AddPic({user}) {
   if(user){
   return (
     <div>
-      <input onChange={getPicUrl}type="file" />
+      {!picUpload && <div className="preview border" onClick={() => document.getElementById("get-pic").click()}>
+        <Icon path={mdiUpload} size={10} />
+        <input id="get-pic" onChange={getPicUrl} type="file" style={{display: "none"}}/>
+      </div>}
+      
       {picUpload && <div className="preview">
         <img className="selected-img" src={picUpload} alt="pic to upload"/>
         <form className="form-picdesc">

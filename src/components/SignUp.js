@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 function SignUp({user, setUser}) {
+  const [username, setUsername] = useState("")
   const [newEmail, setNewEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,6 +37,12 @@ function SignUp({user, setUser}) {
         <p className="description-site">
           Sign up to see photos from friends and family.
         </p>
+        <input
+          className="sign-form"
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <input
           className="sign-form"
           type="email"
