@@ -17,7 +17,7 @@ function AddPic({ user }) {
       <div>
         {!picUpload && (
           <div
-            className="preview border"
+            className="preview border add-photo"
             onClick={() => document.getElementById("get-pic").click()}
           >
             <Icon path={mdiUpload} size={10} />

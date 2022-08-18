@@ -2,6 +2,11 @@ import React, { useState } from "react";
 
 function Comment() {
   const [comment, setComment] = useState("");
+  const styleButton = {
+    backgroundColor: comment ? "#467fd0" : "#fff",
+    color: comment ? "#fff" : "#467fd0",
+    cursor: comment ? "pointer" : "default",
+  }
 
   return (
     <form className="comment-container">
@@ -9,11 +14,10 @@ function Comment() {
         className="comment-description"
         onChange={(e) => setComment(e.target.value)}
       />
-      {comment && (
-        <button className="log-in" style={{ marginTop: "0" }}>
+        <button className="log-in submit-comment" style={styleButton}>
           Submit
         </button>
-      )}
+      
     </form>
   );
 }
