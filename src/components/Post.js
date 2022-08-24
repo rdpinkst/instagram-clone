@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiHeartOutline, mdiMessageOutline } from "@mdi/js";
+import Comment from "./Comment";
 
-function Post({ postData }) {
+function Post({ postData, user }) {
   const [liked, setLiked] = useState(false);
 
   const styleLike = {
@@ -41,8 +42,12 @@ function Post({ postData }) {
         <Icon className="icon" path={mdiMessageOutline} size={1.1} />
       </div>
 
-      <p className="description-post">{postData.caption}</p>
+      <div className="one-line">
+        <h3>{user.email}</h3>
+        <p className="description-post">{postData.caption}</p>
+      </div>
       {comments}
+      <Comment />
     </div>
   );
 }

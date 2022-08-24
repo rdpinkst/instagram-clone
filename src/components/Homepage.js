@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import { signOut } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import Post from "./Post";
-import Comment from "./Comment";
+
 
 const firstPost = {
   uid: 1,
@@ -27,9 +27,7 @@ function Homepage({ user }) {
     return (
       <div className="page">
         <div className="content">
-          <Post postData={postData} />
-          <Comment />
-          <h1>{user.email} is Logged in</h1>
+          <Post postData={postData} user={user} />
         </div>
       </div>
     );
