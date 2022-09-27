@@ -20,6 +20,12 @@ function Post({ postData, user }) {
         <div className="profile-pic"></div>
         <p className="user">{comment.userName}</p>
         <p>{comment.message}</p>
+        <Icon
+          className="icon end"
+          path={mdiHeartOutline}
+          onClick={postLiked}
+          style={styleLike}
+        />
       </div>
     );
   });

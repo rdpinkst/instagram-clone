@@ -135,7 +135,8 @@ span{
     border: 1px solid black;
     border-radius: 50%;
     background-color: rgb(179, 175, 175);
-    margin-right: 0.5rem;
+    margin-right: 10px;
+    margin-left: 10px;
     font-size: 0.5rem;
     display: flex;
     justify-content: center;
@@ -143,7 +144,7 @@ span{
 }
 .comment{
     display: flex;
-    margin:0.5rem;
+    margin:7px 10px;
     align-items: center;
 }
 .user{
@@ -153,6 +154,7 @@ span{
 }
 .like-comment{
     display: flex;
+    gap: 10px;
 }
 .icon{
     margin: 0 0 0.5rem 0.75rem;
@@ -254,11 +256,11 @@ nav{
 .selected-card{
     display: flex;
     position: fixed;
-    height: 90vh;
+    height: 70vh;
     width: 80vw;
     border: 1px solid black;
     background-color: #fff;
-    top: 5vh;
+    top: 10vh;
     left: 10vw;
     z-index: 1;
 }
@@ -303,7 +305,7 @@ nav{
 .preview{
     height:400px;
     width:500px;
-    margin-top: 2rem;
+    margin-top: 75px;
 }
 .add-photo{
     display: flex;
@@ -318,7 +320,7 @@ nav{
 .form-picdesc{
     display: flex;
     flex-direction: column;
-    margin-top: 2rem;
+    margin-top: 20px;
 }
 .desc-bold{
     font-weight: 700;
@@ -334,19 +336,31 @@ button{
 .comment-container{
     display: flex;
     margin-top: 0.5rem;
+    border-top: 1px solid black;
 }
 .comment-description{
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
+    border: none;
+    padding: 20px 10px;
+    margin-right: 2px;
 }
 .submit-comment{
     margin: auto 0;
     height: 100%;
+    padding: 20px 5px;
     /* background-color: #fff; */
     /* color: #467fd0; */
 }
 .one-line{
     display: flex;
     align-items: center;
-    margin-left: 0.5rem;
+    margin-left: 20px;
+}
+.end{
+    margin-left: auto;
+    margin-right: 10px;
+}
+.bottom-right{
+    margin: auto 10px 10px auto;
 }

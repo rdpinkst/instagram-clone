@@ -10,8 +10,10 @@ function Comment() {
 
   return (
     <form className="comment-container">
-      <textarea
+      <input 
+        type="text"
         className="comment-description"
+        placeholder="Add a comment..."
         onChange={(e) => setComment(e.target.value)}
       />
         <button className="log-in submit-comment" style={styleButton}>

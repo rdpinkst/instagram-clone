@@ -20,7 +20,7 @@ function AddPic({ user }) {
             className="preview border add-photo"
             onClick={() => document.getElementById("get-pic").click()}
           >
-            <Icon path={mdiUpload} size={10} />
+            <Icon path={mdiUpload} size={10} style={{ opacity: "0.8" }} />
             <input
               id="get-pic"
               onChange={getPicUrl}

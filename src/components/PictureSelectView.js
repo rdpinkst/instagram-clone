@@ -28,7 +28,7 @@ function PictureSelectView({ picUrl, setPicUrl, setDeletePic }) {
           <p className="user">Users Name</p>
           <p>This is a random comment</p>
         </div>
-        <Icon className="icon" onClick={deletePic} path={mdiDotsHorizontal} size={1.1} />
+        <Icon className="icon bottom-right" onClick={deletePic} path={mdiDotsHorizontal} size={1.1} />
       </div>
     </div>
   );
