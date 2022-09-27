@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiUpload } from "@mdi/js";
+import { ref, uploadBytes } from "firebase/storage";
+import { storage } from "../firebase.js"
 
 function AddPic({ user }) {
   const [picUpload, setPicUpload] = useState("");
@@ -9,6 +11,12 @@ function AddPic({ user }) {
   function getPicUrl(e) {
     const filePic = e.target.files[0];
     const picUrl = URL.createObjectURL(filePic);
+    const storageRef = ref(storage, "postPic");
+    //uploaded pic
+    uploadBytes(storageRef, filePic).then((snapshot) => {
+      console.log("Uploaded")
+    })
+    console.log(filePic);
     setPicUpload(picUrl);
   }
 
