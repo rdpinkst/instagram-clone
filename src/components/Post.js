@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiHeartOutline, mdiMessageOutline } from "@mdi/js";
 import Comment from "./Comment";
+import PostComment from "./PostComment";
 
 function Post({ postData, user }) {
   const [liked, setLiked] = useState(false);
@@ -16,17 +17,7 @@ function Post({ postData, user }) {
 
   const comments = postData.comments.map((comment) => {
     return (
-      <div key={comment.uid} className="comment">
-        <div className="profile-pic"></div>
-        <p className="user">{comment.userName}</p>
-        <p>{comment.message}</p>
-        <Icon
-          className="icon end"
-          path={mdiHeartOutline}
-          onClick={postLiked}
-          style={styleLike}
-        />
-      </div>
+      <PostComment key={comment.uid} userName = {comment.userName} message = {comment.message} />
     );
   });
 

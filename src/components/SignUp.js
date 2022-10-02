@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"
+import { auth, db } from "../firebase";
 
 function SignUp({user, setUser}) {
   const [username, setUsername] = useState("")
@@ -19,7 +20,11 @@ function SignUp({user, setUser}) {
       createUserWithEmailAndPassword(auth, newEmail, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          setUser(user);
+          updateProfile(user, {
+            displayName: username,
+          }).then(() => {
+            setUser(user);
+          }) 
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -31,7 +36,7 @@ function SignUp({user, setUser}) {
 
   return (
     <div className="sign-up">
-      {user?.email && <Navigate to="/home" replace={true} />}
+      {user?.email && <Navigate to="/newuser" replace={true} />}
       <form className="create-user" onSubmit={register}>
         <h1 className="title-form">El Instagram Clone</h1>
         <p className="description-site">

@@ -7,6 +7,7 @@ import Homepage from "./components/Homepage";
 import ProfileInfo from "./components/ProfileInfo";
 import HomeNavbar from "./components/HomeNavbar";
 import AddPic from "./components/AddPic";
+import NewUserInfo from "./components/NewUserInfo";
 
 function App() {
   const [user, setUser] = useState("");
@@ -27,6 +28,7 @@ function App() {
             element={<Homepage user={user} />}
           />
           <Route path="/addpic" element={<AddPic user={user} />} />
+          <Route path="/newuser" element={<NewUserInfo user={user} /> } />
           <Route path="/profile" element={<ProfileInfo user={user} />} />
         </Routes>
       </BrowserRouter>
