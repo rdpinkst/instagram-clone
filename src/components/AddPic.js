@@ -6,7 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { storage, auth } from "../firebase.js"
 
-function AddPic({ user, newUser, setNewUser, setUser }) {
+function AddPic({ user, newUser, setNewUser, setUser, updateBio }) {
   const [picUpload, setPicUpload] = useState("");
 
   function getPicUrl(e) {
@@ -37,6 +37,7 @@ function AddPic({ user, newUser, setNewUser, setUser }) {
   if (user) {
     return (
       <div>
+        <h1>{updateBio ? "Update Profile Pic and Bio" : "Add a New Post"}</h1>
         {!picUpload && (
           <div
             className="preview border add-photo"
@@ -57,7 +58,7 @@ function AddPic({ user, newUser, setNewUser, setUser }) {
             <img className="selected-img" src={picUpload} alt="pic to upload" />
             <form className="form-picdesc">
               <label htmlFor="description" className="desc-bold">
-                Description:{" "}
+                {updateBio ? "Bio: " : "Description: "}
               </label>
               <textarea id="description" type="text" />
             </form>

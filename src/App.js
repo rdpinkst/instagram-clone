@@ -7,28 +7,39 @@ import Homepage from "./components/Homepage";
 import ProfileInfo from "./components/ProfileInfo";
 import HomeNavbar from "./components/HomeNavbar";
 import AddPic from "./components/AddPic";
-import NewUserInfo from "./components/NewUserInfo";
+
 
 function App() {
   const [user, setUser] = useState("");
-  
+  const [updateBio, setUpdateBio] = useState(false);
 
   return (
     <div className="App">
       <BrowserRouter>
-        {user && <HomeNavbar setUser={setUser}  />}
+        {user && <HomeNavbar setUser={setUser} />}
         <Routes>
           <Route path="/" element={<SignIn user={user} setUser={setUser} />} />
           <Route
             path="/sign-up"
-            element={<SignUp user={user} setUser={setUser} />}
+            element={
+              <SignUp
+                user={user}
+                setUser={setUser}
+                setUpdateBio={setUpdateBio}
+              />
+            }
           />
+          <Route path="/home" element={<Homepage user={user} />} />
           <Route
-            path="/home"
-            element={<Homepage user={user} />}
+            path="/addpic"
+            element={
+              <AddPic
+                user={user}
+                setUser={setUser}
+                updateBio={updateBio}
+              />
+            }
           />
-          <Route path="/addpic" element={<AddPic user={user} setUser={setUser} />} />
-          <Route path="/newuser" element={<NewUserInfo user={user} /> } />
           <Route path="/profile" element={<ProfileInfo user={user} />} />
         </Routes>
       </BrowserRouter>

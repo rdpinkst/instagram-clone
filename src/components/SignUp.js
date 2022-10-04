@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"
 import { auth, db } from "../firebase";
 
-function SignUp({user, setUser}) {
+function SignUp({user, setUser, setUpdateBio}) {
   const [username, setUsername] = useState("")
   const [newEmail, setNewEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +24,7 @@ function SignUp({user, setUser}) {
             displayName: username,
           }).then(() => {
             setUser(user);
+            setUpdateBio(prevState => !prevState);
           }) 
         })
         .catch((error) => {
@@ -36,7 +37,7 @@ function SignUp({user, setUser}) {
 
   return (
     <div className="sign-up">
-      {user?.email && <Navigate to="/newuser" replace={true} />}
+      {user?.email && <Navigate to="/addpic" replace={true} />}
       <form className="create-user" onSubmit={register}>
         <h1 className="title-form">El Instagram Clone</h1>
         <p className="description-site">
