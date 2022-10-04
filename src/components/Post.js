@@ -40,7 +40,7 @@ function Post({ postData, user }) {
       </div>
 
       <div className="one-line">
-        <h3>{user.email}</h3>
+        <h3>{user.displayName}</h3>
         <p className="description-post">{postData.caption}</p>
       </div>
       {comments}

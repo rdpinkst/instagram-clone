@@ -1,10 +1,11 @@
 import React from "react";
 
-function Profile() {
+function Profile({user}) {
   return (
     <div className="user-info">
       <div className="profile-pic bigger-pic">
-        <span className="no-pic">No Image</span>
+        <img className= "contain-pic" src={user.photoURL} alt="Profile" />
+        {/* <span className="no-pic">No Image</span> */}
         <div className="add-pic">
           <span className="add">+</span>
         </div>

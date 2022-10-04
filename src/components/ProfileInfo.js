@@ -11,7 +11,7 @@ function ProfileInfo({ user }) {
   if (user) {
     return (
       <div className="editable-profile">
-        <Profile />
+        <Profile user={user}/>
         <div className="user-personal">
           <p>This is the info about person</p>
           <div className="center-btn">

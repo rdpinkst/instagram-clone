@@ -27,7 +27,7 @@ function App() {
             path="/home"
             element={<Homepage user={user} />}
           />
-          <Route path="/addpic" element={<AddPic user={user} />} />
+          <Route path="/addpic" element={<AddPic user={user} setUser={setUser} />} />
           <Route path="/newuser" element={<NewUserInfo user={user} /> } />
           <Route path="/profile" element={<ProfileInfo user={user} />} />
         </Routes>
