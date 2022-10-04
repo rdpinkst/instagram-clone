@@ -6,8 +6,9 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { storage, auth } from "../firebase.js"
 
-function AddPic({ user, newUser, setNewUser, setUser, updateBio }) {
+function AddPic({ user, setUser, updateBio, setUpdateBio }) {
   const [picUpload, setPicUpload] = useState("");
+  const [inputInfo, setInputInfo] = useState("");
 
   function getPicUrl(e) {
     const filePic = e.target.files[0];
@@ -18,19 +19,19 @@ function AddPic({ user, newUser, setNewUser, setUser, updateBio }) {
     uploadBytes(storageRef, filePic).then((snapshot) => {
       console.log("Uploaded")
       getDownloadURL(storageRef).then((url) => {
-        if(newUser){
+        if(updateBio){
         updateProfile(auth.currentUser, {
           photoURL: url,
         }).then(() => {
           setUser(auth.currentUser);
-          setNewUser(prevState => !prevState);
         }).catch((error) => {
           console.log(error);
         })
       }
+      //Need an else statement for when adding new post adding uid, picURL, caption, comment array
+      //likes array and userName
       })
-    })
-    
+    }) 
   }
 
 
@@ -60,7 +61,7 @@ function AddPic({ user, newUser, setNewUser, setUser, updateBio }) {
               <label htmlFor="description" className="desc-bold">
                 {updateBio ? "Bio: " : "Description: "}
               </label>
-              <textarea id="description" type="text" />
+              <textarea id="description" type="text" onChange={(e) => setInputInfo(e.target.value)} />
             </form>
             <button className="btn-signup full-width">Submit</button>
           </div>

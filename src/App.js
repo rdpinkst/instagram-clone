@@ -8,7 +8,6 @@ import ProfileInfo from "./components/ProfileInfo";
 import HomeNavbar from "./components/HomeNavbar";
 import AddPic from "./components/AddPic";
 
-
 function App() {
   const [user, setUser] = useState("");
   const [updateBio, setUpdateBio] = useState(false);
@@ -16,7 +15,13 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {user && <HomeNavbar setUser={setUser} />}
+        {user && (
+          <HomeNavbar
+            setUser={setUser}
+            updateBio={updateBio}
+            setUpdateBio={setUpdateBio}
+          />
+        )}
         <Routes>
           <Route path="/" element={<SignIn user={user} setUser={setUser} />} />
           <Route
@@ -37,6 +42,7 @@ function App() {
                 user={user}
                 setUser={setUser}
                 updateBio={updateBio}
+                setUpdateBio={setUpdateBio}
               />
             }
           />
