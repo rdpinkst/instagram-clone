@@ -10,6 +10,7 @@ import { storage, auth, db } from "../firebase.js";
 function AddPic({ user, setUser, updateBio, setUpdateBio }) {
   const [picUpload, setPicUpload] = useState("");
   const [inputInfo, setInputInfo] = useState("");
+  const [docId, setDocId] = useState("");
 
   function getPicUrl(e) {
     const filePic = e.target.files[0];
@@ -39,14 +40,23 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
             userId: user.uid,
             picUrl: url,
             userName: user.displayName,
-          }).then(() => {
-            console.log("Document Set")
-          }).catch((error) => {
-            console.log(error.message)
           })
+            .then((postRef) => {
+              console.log("Document Set");
+              console.log(postRef.id);
+              setDocId(postRef.id)
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
         }
       });
     });
+  }
+
+  function submitPost(e) {
+    e.preventDefault();
+
   }
 
   if (user) {
@@ -81,7 +91,9 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
                 onChange={(e) => setInputInfo(e.target.value)}
               />
             </form>
-            <button className="btn-signup full-width">Submit</button>
+            <button className="btn-signup full-width" onSubmit={submitPost}>
+              Submit
+            </button>
           </div>
         )}
       </div>
