@@ -343,8 +343,9 @@ button{
     width: 100%;
     /* height: 50px; */
     border: none;
-    padding: 20px 10px;
+    padding: 0 10px;
     margin-right: 2px;
+    font-size: 15px;
 }
 .submit-comment{
     margin: auto 0;

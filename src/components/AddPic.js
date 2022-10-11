@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiUpload } from "@mdi/js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, collection, setDoc } from "firebase/firestore";
+import { doc, collection, addDoc, setDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
@@ -35,16 +35,16 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
         //Need an else statement for when adding new post adding uid, picURL, caption, comment array
         //likes array and userName
         else {
-          const postRef = doc(collection(db, "post"));
-          setDoc(postRef, {
+          const postRef = collection(db, "post");
+          console.log(postRef);
+          addDoc(postRef, {
             userId: user.uid,
             picUrl: url,
             userName: user.displayName,
+            docId: postRef.id,
           })
-            .then((postRef) => {
-              console.log("Document Set");
-              console.log(postRef.id);
-              setDocId(postRef.id)
+            .then((res) => {
+              setDocId(res.id);
             })
             .catch((error) => {
               console.log(error.message);
@@ -54,8 +54,10 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
     });
   }
 
+  //Add docId to post data, along with caption about post, comments array, likes array
   function submitPost(e) {
     e.preventDefault();
+    
 
   }
 
@@ -88,6 +90,7 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
               <textarea
                 id="description"
                 type="text"
+                value={inputInfo}
                 onChange={(e) => setInputInfo(e.target.value)}
               />
             </form>
