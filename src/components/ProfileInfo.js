@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Profile from "./Profile";
 import TilePictures from "./TilePictures";
 import PictureSelectView from "./PictureSelectView";
@@ -7,6 +7,10 @@ import { Navigate } from "react-router-dom";
 function ProfileInfo({ user }) {
   const [picUrl, setPicUrl] = useState("");
   const [deletePic, setDeletePic] = useState(false);
+
+  useEffect(() => {
+    //onSnapshot firebase to get all post made my user
+  }, [])
 
   if (user) {
     return (

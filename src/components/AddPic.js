@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiUpload } from "@mdi/js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, collection, addDoc, setDoc } from "firebase/firestore";
+import { doc, collection, addDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
@@ -57,7 +57,24 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
   //Add docId to post data, along with caption about post, comments array, likes array
   function submitPost(e) {
     e.preventDefault();
-    
+    console.log("submitted")
+    const newPostRef = doc(db, "post", docId)
+
+    updateDoc(newPostRef, {
+      captions: inputInfo,
+      id: docId,
+      comments: [],
+      likes: [],
+      timeStamp: serverTimestamp(),
+    }).then(() =>{
+      console.log("Updated");
+      setPicUpload("");
+      setInputInfo("");
+      setDocId("");
+    }).catch((error) => {
+      console.log(error.message);
+    })
+
 
   }
 
@@ -93,8 +110,9 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
                 value={inputInfo}
                 onChange={(e) => setInputInfo(e.target.value)}
               />
+
             </form>
-            <button className="btn-signup full-width" onSubmit={submitPost}>
+            <button className="btn-signup full-width" onClick={submitPost}>
               Submit
             </button>
           </div>
