@@ -41,7 +41,6 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
             userId: user.uid,
             picUrl: url,
             userName: user.displayName,
-            docId: postRef.id,
           })
             .then((res) => {
               setDocId(res.id);
@@ -68,6 +67,7 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
       timeStamp: serverTimestamp(),
     }).then(() =>{
       console.log("Updated");
+      alert("Picture Info Added")
       setPicUpload("");
       setInputInfo("");
       setDocId("");

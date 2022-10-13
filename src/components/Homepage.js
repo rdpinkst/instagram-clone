@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import { auth } from "../firebase";
-// import { signOut } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import Post from "./Post";
 
