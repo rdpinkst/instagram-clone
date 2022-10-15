@@ -19,7 +19,7 @@ const pics = [
   seventhPic,
 ];
 
-function TilePictures({setPicUrl, picUrl, deletePic, setDeletePic}) {
+function TilePictures({setPicUrl, picUrl, deletePic, setDeletePic, posts}) {
   const [picArray, setPicArray] = useState(pics)
 
   useEffect(() => {
@@ -32,10 +32,10 @@ function TilePictures({setPicUrl, picUrl, deletePic, setDeletePic}) {
     }
   }, [deletePic, picUrl, setPicUrl, setDeletePic])
   
-  const postedPics = picArray.map((pic, index) => {
+  const postedPics = posts.map((pic, index) => {
     return (
       <div key={index} className="individual-pic" onClick={() => setPicUrl(pic)}>
-        <img src={pic} alt="posted pic" className="trying-it"></img>
+        <img src={pic.picUrl} alt="posted pic" className="trying-it"></img>
       </div>
     );
   });
