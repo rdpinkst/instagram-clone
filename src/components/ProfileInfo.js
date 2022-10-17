@@ -18,7 +18,6 @@ function ProfileInfo({ user }) {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       console.log("running")
       const postsArr = [];
-      console.log(snapshot)
       snapshot.forEach(doc => {
         postsArr.push({...doc.data()});
       })
@@ -27,7 +26,7 @@ function ProfileInfo({ user }) {
     (error) => {
       console.log(error.message);
     })
-    // setPosts(postsArr);
+    
     return () => unsubscribe();
   }, [user.uid])
 
@@ -53,6 +52,7 @@ function ProfileInfo({ user }) {
             picUrl={picUrl}
             setPicUrl={setPicUrl}
             setDeletePic={setDeletePic}
+            posts={posts}
           />
         ) : null}
       </div>
