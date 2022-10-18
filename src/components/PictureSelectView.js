@@ -1,14 +1,40 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Icon from "@mdi/react";
 import { mdiHeartOutline, mdiMessageOutline, mdiDotsHorizontal } from "@mdi/js";
+import { ref, deleteObject } from "firebase/storage";
+import { doc, deleteDoc } from "firebase/firestore";
+import { storage, db } from "../firebase.js"
 
-function PictureSelectView({ picUrl, setPicUrl, setDeletePic, posts }) {
+function PictureSelectView({ picUrl, setPicUrl, setDeletePic, user}) {
   function clearPicUrl() {
     setPicUrl("");
   }
   function deletePic(){
-    setDeletePic(true);
+    // setDeletePic(true);
+    if(picUrl.userId ===user.uid){
+      console.log("True")
+      const deleteRef = ref(storage, picUrl.picUrl);
+
+      deleteObject(deleteRef).then((res) => {
+        console.log(res)
+        //Need to figure out missing or insufficient permission
+        deleteDoc(doc(db, "post", picUrl.id)).then(() => {
+          console.log("deleted")
+        }).catch((error) => {
+          console.log(error.message)
+        })
+      }).catch((error) => {
+        console.log(error.message)
+      })
+    }
   }
+
+  // useEffect(() => {
+  //   if(picUrl.userId ===user.uid){
+  //     console.log("True")
+  //   }
+  // }, [picUrl.userId, user.uid])
+
   return (
     <div className="selected-card">
       <div className="picture-container">
