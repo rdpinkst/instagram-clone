@@ -15,10 +15,12 @@ function PictureSelectView({ picUrl, setPicUrl, setDeletePic, user}) {
       console.log("True")
       const deleteRef = ref(storage, picUrl.picUrl);
 
-      deleteObject(deleteRef).then((res) => {
-        console.log(res)
+      deleteObject(deleteRef).then(() => {
         //Need to figure out missing or insufficient permission
-        deleteDoc(doc(db, "post", picUrl.id)).then(() => {
+        // const postRef = collection(db, 'post');
+        // const q = query(postRef, where('id', '==', picUrl.id))
+        const docRef = doc(db, 'post', picUrl.id);
+        deleteDoc(docRef).then(() => {
           console.log("deleted")
         }).catch((error) => {
           console.log(error.message)
