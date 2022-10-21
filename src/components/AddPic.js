@@ -3,7 +3,13 @@ import { Navigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiUpload } from "@mdi/js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, collection, addDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  addDoc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
@@ -27,16 +33,32 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
           })
             .then(() => {
               setUser(auth.currentUser);
+              const userRef = collection(db, "users");
+
+              addDoc(userRef, {
+                userId: user.uid,
+                profilePic: url,
+                followers: [],
+                following: [],
+                bio: "",
+                userName: user.displayName,
+                dateMember: serverTimestamp(),
+              })
+                .then(() => {
+                  console.log("User collection started");
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
             })
             .catch((error) => {
               console.log(error.message);
             });
         }
-        //Need an else statement for when adding new post adding uid, picURL, caption, comment array
-        //likes array and userName
+        
         else {
           const postRef = collection(db, "post");
-          console.log(postRef);
+
           addDoc(postRef, {
             userId: user.uid,
             picUrl: url,
@@ -56,26 +78,32 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
   //Add docId to post data, along with caption about post, comments array, likes array
   function submitPost(e) {
     e.preventDefault();
-    console.log("submitted")
-    const newPostRef = doc(db, "post", docId)
-
-    updateDoc(newPostRef, {
-      captions: inputInfo,
-      id: docId,
-      comments: [],
-      likes: [],
-      timeStamp: serverTimestamp(),
-    }).then(() =>{
-      console.log("Updated");
-      alert("Picture Info Added")
+    console.log("submitted");
+    if (updateBio) {
       setPicUpload("");
       setInputInfo("");
-      setDocId("");
-    }).catch((error) => {
-      console.log(error.message);
-    })
+      setUpdateBio(prevState => !prevState)
+    } else {
+      const newPostRef = doc(db, "post", docId);
 
-
+      updateDoc(newPostRef, {
+        captions: inputInfo,
+        id: docId,
+        comments: [],
+        likes: [],
+        timeStamp: serverTimestamp(),
+      })
+        .then(() => {
+          console.log("Updated");
+          alert("Picture Info Added");
+          setPicUpload("");
+          setInputInfo("");
+          setDocId("");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   }
 
   if (user) {
@@ -110,7 +138,6 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
                 value={inputInfo}
                 onChange={(e) => setInputInfo(e.target.value)}
               />
-
             </form>
             <button className="btn-signup full-width" onClick={submitPost}>
               Submit

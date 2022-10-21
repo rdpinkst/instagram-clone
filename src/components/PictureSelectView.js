@@ -1,41 +1,36 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Icon from "@mdi/react";
 import { mdiHeartOutline, mdiMessageOutline, mdiDotsHorizontal } from "@mdi/js";
 import { ref, deleteObject } from "firebase/storage";
 import { doc, deleteDoc } from "firebase/firestore";
-import { storage, db } from "../firebase.js"
+import { storage, db } from "../firebase.js";
 
-function PictureSelectView({ picUrl, setPicUrl, setDeletePic, user}) {
+function PictureSelectView({ picUrl, setPicUrl, user }) {
   function clearPicUrl() {
     setPicUrl("");
   }
-  function deletePic(){
-    // setDeletePic(true);
-    if(picUrl.userId ===user.uid){
-      console.log("True")
+  function deletePic() {
+    if (picUrl.userId === user.uid) {
       const deleteRef = ref(storage, picUrl.picUrl);
 
-      deleteObject(deleteRef).then(() => {
-        //Need to figure out missing or insufficient permission
-        // const postRef = collection(db, 'post');
-        // const q = query(postRef, where('id', '==', picUrl.id))
-        const docRef = doc(db, 'post', picUrl.id);
-        deleteDoc(docRef).then(() => {
-          console.log("deleted")
-        }).catch((error) => {
-          console.log(error.message)
+      deleteObject(deleteRef)
+        .then(() => {
+          const docRef = doc(db, "post", picUrl.id);
+          deleteDoc(docRef)
+            .then(() => {
+              console.log("deleted");
+              setPicUrl("");
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
         })
-      }).catch((error) => {
-        console.log(error.message)
-      })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   }
 
-  // useEffect(() => {
-  //   if(picUrl.userId ===user.uid){
-  //     console.log("True")
-  //   }
-  // }, [picUrl.userId, user.uid])
 
   return (
     <div className="selected-card">
@@ -56,7 +51,12 @@ function PictureSelectView({ picUrl, setPicUrl, setDeletePic, user}) {
           <p className="user">Users Name</p>
           <p>{picUrl.captions}</p>
         </div>
-        <Icon className="icon bottom-right" onClick={deletePic} path={mdiDotsHorizontal} size={1.1} />
+        <Icon
+          className="icon bottom-right"
+          onClick={deletePic}
+          path={mdiDotsHorizontal}
+          size={1.1}
+        />
       </div>
     </div>
   );

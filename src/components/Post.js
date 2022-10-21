@@ -17,7 +17,11 @@ function Post({ postData, user }) {
 
   const comments = postData.comments.map((comment) => {
     return (
-      <PostComment key={comment.uid} userName = {comment.userName} message = {comment.message} />
+      <PostComment
+        key={comment.uid}
+        userName={comment.userName}
+        message={comment.message}
+      />
     );
   });
 

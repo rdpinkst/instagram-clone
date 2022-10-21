@@ -14,7 +14,7 @@ function SignUp({user, setUser, setUpdateBio}) {
     return set === confirm;
   };
 
-  const register = async (e) => {
+  const register = (e) => {
     e.preventDefault();
     if (newEmail !== "" && checkPasswords(password, confirmPassword)) {
       createUserWithEmailAndPassword(auth, newEmail, password)
