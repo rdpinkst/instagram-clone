@@ -13,45 +13,55 @@ import {
 import { db } from "../firebase";
 import { Navigate } from "react-router-dom";
 
-function ProfileInfo({ user }) {
+function ProfileInfo({ user, updateBio, setUpdateBio }) {
   const [picUrl, setPicUrl] = useState("");
   const [deletePic, setDeletePic] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    //onSnapshot firebase to get all post made my user
+    if (user) {
+      //onSnapshot firebase to get all post made my user
+      const q = query(
+        collection(db, "post"),
+        orderBy("timeStamp", "desc"),
+        where("userId", "==", user.uid)
+      );
+      const unsubscribe = onSnapshot(
+        q,
+        (snapshot) => {
+          console.log("running");
+          const postsArr = [];
+          snapshot.forEach((doc) => {
+            postsArr.push({ ...doc.data() });
+          });
+          setPosts(postsArr);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+      return () => unsubscribe();
+    }
+  }, [user]);
 
-    const q = query(
-      collection(db, "post"),
-      orderBy("timeStamp", "desc"),
-      where("userId", "==", user.uid)
-    );
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        console.log("running");
-        const postsArr = [];
-        snapshot.forEach((doc) => {
-          postsArr.push({ ...doc.data() });
-        });
-        setPosts(postsArr);
-      },
-      (error) => {
-        console.log(error.message);
-      }
-    );
-
-    return () => unsubscribe();
-  }, [user.uid]);
+  function update(){
+    setUpdateBio(prevState => !prevState);
+  }
 
   if (user) {
     return (
       <div className="editable-profile">
+        {updateBio && <Navigate to="/addpic" replace={true} />}
         <Profile user={user} />
         <div className="user-personal">
           <p>This is the info about person</p>
           <div className="center-btn">
-            <button className="log-in full-width">Edit Profile</button>
+            <button
+              className="log-in full-width"
+              onClick={update}
+            >
+              Edit Profile
+            </button>
           </div>
         </div>
         <TilePictures

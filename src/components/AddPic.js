@@ -13,7 +13,7 @@ import {
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
-function AddPic({ user, setUser, updateBio, setUpdateBio }) {
+function AddPic({ user, setUser, newBio, setNewBio, updateBio, setUpdateBio }) {
   const [picUpload, setPicUpload] = useState("");
   const [inputInfo, setInputInfo] = useState("");
   const [docId, setDocId] = useState("");
@@ -27,7 +27,7 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
     uploadBytes(storageRef, filePic).then((snapshot) => {
       console.log("Uploaded");
       getDownloadURL(storageRef).then((url) => {
-        if (updateBio) {
+        if (newBio) {
           updateProfile(auth.currentUser, {
             photoURL: url,
           })
@@ -79,10 +79,10 @@ function AddPic({ user, setUser, updateBio, setUpdateBio }) {
   function submitPost(e) {
     e.preventDefault();
     console.log("submitted");
-    if (updateBio) {
+    if (newBio) {
       setPicUpload("");
       setInputInfo("");
-      setUpdateBio(prevState => !prevState)
+      setNewBio(prevState => !prevState)
     } else {
       const newPostRef = doc(db, "post", docId);
 

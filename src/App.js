@@ -10,6 +10,7 @@ import AddPic from "./components/AddPic";
 
 function App() {
   const [user, setUser] = useState("");
+  const [newBio, setNewBio] = useState(false);
   const [updateBio, setUpdateBio] = useState(false);
 
   return (
@@ -30,7 +31,7 @@ function App() {
               <SignUp
                 user={user}
                 setUser={setUser}
-                setUpdateBio={setUpdateBio}
+                setNewBio={setNewBio}
               />
             }
           />
@@ -41,12 +42,23 @@ function App() {
               <AddPic
                 user={user}
                 setUser={setUser}
+                newBio={newBio}
+                setNewBio={setNewBio}
                 updateBio={updateBio}
                 setUpdateBio={setUpdateBio}
               />
             }
           />
-          <Route path="/profile" element={<ProfileInfo user={user} />} />
+          <Route
+            path="/profile"
+            element={
+              <ProfileInfo
+                user={user}
+                updateBio={updateBio}
+                setUpdateBio={setUpdateBio}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

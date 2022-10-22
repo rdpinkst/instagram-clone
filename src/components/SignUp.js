@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 
-function SignUp({user, setUser, setUpdateBio}) {
+function SignUp({user, setUser, setNewBio}) {
   const [username, setUsername] = useState("")
   const [newEmail, setNewEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +23,7 @@ function SignUp({user, setUser, setUpdateBio}) {
             displayName: username,
           }).then(() => {
             setUser(user);
-            setUpdateBio(prevState => !prevState);
+            setNewBio(prevState => !prevState);
           }) 
         })
         .catch((error) => {
