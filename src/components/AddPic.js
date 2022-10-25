@@ -13,7 +13,16 @@ import {
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
-function AddPic({ user, setUser, newBio, setNewBio, updateBio, setUpdateBio }) {
+function AddPic({
+  user,
+  setUser,
+  newBio,
+  setNewBio,
+  updateBio,
+  setUpdateBio,
+  setUserDocId,
+  userDocId,
+}) {
   const [picUpload, setPicUpload] = useState("");
   const [inputInfo, setInputInfo] = useState("");
   const [docId, setDocId] = useState("");
@@ -44,8 +53,10 @@ function AddPic({ user, setUser, newBio, setNewBio, updateBio, setUpdateBio }) {
                 userName: user.displayName,
                 dateMember: serverTimestamp(),
               })
-                .then(() => {
+                .then((res) => {
                   console.log("User collection started");
+                  setDocId(res.id);
+                  setUserDocId(res.id);
                 })
                 .catch((error) => {
                   console.log(error.message);
@@ -54,9 +65,7 @@ function AddPic({ user, setUser, newBio, setNewBio, updateBio, setUpdateBio }) {
             .catch((error) => {
               console.log(error.message);
             });
-        }
-        
-        else {
+        } else {
           const postRef = collection(db, "post");
 
           addDoc(postRef, {
@@ -80,9 +89,33 @@ function AddPic({ user, setUser, newBio, setNewBio, updateBio, setUpdateBio }) {
     e.preventDefault();
     console.log("submitted");
     if (newBio) {
-      setPicUpload("");
-      setInputInfo("");
-      setNewBio(prevState => !prevState)
+      const userRef = doc(db, "post", docId);
+
+      updateDoc(userRef, {
+        id: docId,
+      })
+        .then(() => {
+          setPicUpload("");
+          setInputInfo("");
+          setNewBio((prevState) => !prevState);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else if (updateBio) {
+      const userRef = doc(db, "users", userDocId);
+
+      updateDoc(userRef, {
+        bio: inputInfo,
+      })
+        .then(() => {
+          setPicUpload("");
+          setInputInfo("");
+          setUpdateBio((prevState) => !prevState);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     } else {
       const newPostRef = doc(db, "post", docId);
 

@@ -1,17 +1,31 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { query, where, collection, getDoc, onSnapshot } from "firebase/firestore";
 import SignIn from "./components/Sign-in";
 import SignUp from "./components/SignUp";
 import Homepage from "./components/Homepage";
 import ProfileInfo from "./components/ProfileInfo";
 import HomeNavbar from "./components/HomeNavbar";
 import AddPic from "./components/AddPic";
+import { db } from "./firebase";
 
 function App() {
   const [user, setUser] = useState("");
+  const [userDocId, setUserDocId] = useState("");
   const [newBio, setNewBio] = useState(false);
   const [updateBio, setUpdateBio] = useState(false);
+
+  //Snapshot working and need to set to state
+  useEffect(() => {
+    if (user) {
+      const q = query(collection(db, "users"), where("userId", "==", user.uid));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        console.log(snapshot.docs[0].data())
+      })
+     return () => unsubscribe()
+    }
+  }, [user]);
 
   return (
     <div className="App">
@@ -28,11 +42,7 @@ function App() {
           <Route
             path="/sign-up"
             element={
-              <SignUp
-                user={user}
-                setUser={setUser}
-                setNewBio={setNewBio}
-              />
+              <SignUp user={user} setUser={setUser} setNewBio={setNewBio} />
             }
           />
           <Route path="/home" element={<Homepage user={user} />} />
@@ -46,6 +56,8 @@ function App() {
                 setNewBio={setNewBio}
                 updateBio={updateBio}
                 setUpdateBio={setUpdateBio}
+                userDocId={userDocId}
+                setUserDocId={setUserDocId}
               />
             }
           />
