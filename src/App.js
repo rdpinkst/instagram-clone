@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { query, where, collection, getDoc, onSnapshot } from "firebase/firestore";
+import { query, where, collection, onSnapshot } from "firebase/firestore";
 import SignIn from "./components/Sign-in";
 import SignUp from "./components/SignUp";
 import Homepage from "./components/Homepage";
@@ -12,20 +12,22 @@ import { db } from "./firebase";
 
 function App() {
   const [user, setUser] = useState("");
-  const [userDocId, setUserDocId] = useState("");
+  const [userInfo, setUserInfo] = useState("");
   const [newBio, setNewBio] = useState(false);
   const [updateBio, setUpdateBio] = useState(false);
 
   //Snapshot working and need to set to state
   useEffect(() => {
-    if (user) {
+    if (user && !newBio) {
       const q = query(collection(db, "users"), where("userId", "==", user.uid));
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        console.log(snapshot.docs[0].data())
+
+        console.log(snapshot.docs[0].data());
+        setUserInfo(snapshot.docs[0].data());
       })
      return () => unsubscribe()
     }
-  }, [user]);
+  }, [user, newBio]);
 
   return (
     <div className="App">
@@ -56,8 +58,8 @@ function App() {
                 setNewBio={setNewBio}
                 updateBio={updateBio}
                 setUpdateBio={setUpdateBio}
-                userDocId={userDocId}
-                setUserDocId={setUserDocId}
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
             }
           />

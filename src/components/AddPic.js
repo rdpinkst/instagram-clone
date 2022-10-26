@@ -20,8 +20,8 @@ function AddPic({
   setNewBio,
   updateBio,
   setUpdateBio,
-  setUserDocId,
-  userDocId,
+  setUserInfo,
+  userInfo,
 }) {
   const [picUpload, setPicUpload] = useState("");
   const [inputInfo, setInputInfo] = useState("");
@@ -56,7 +56,6 @@ function AddPic({
                 .then((res) => {
                   console.log("User collection started");
                   setDocId(res.id);
-                  setUserDocId(res.id);
                 })
                 .catch((error) => {
                   console.log(error.message);
@@ -89,21 +88,23 @@ function AddPic({
     e.preventDefault();
     console.log("submitted");
     if (newBio) {
-      const userRef = doc(db, "post", docId);
+      const userRef = doc(db, "users", docId);
 
       updateDoc(userRef, {
         id: docId,
+        bio: inputInfo,
       })
         .then(() => {
           setPicUpload("");
           setInputInfo("");
+          setDocId("");
           setNewBio((prevState) => !prevState);
         })
         .catch((error) => {
           console.log(error.message);
         });
     } else if (updateBio) {
-      const userRef = doc(db, "users", userDocId);
+      const userRef = doc(db, "users", userInfo.id);
 
       updateDoc(userRef, {
         bio: inputInfo,
@@ -139,10 +140,20 @@ function AddPic({
     }
   }
 
+  function titlePage(){
+    if(newBio){
+      return "Upload a Profile Pic and Bio information";
+    } else if(updateBio){
+      return "Update Profile Pic and Bio";
+    } else {
+      return "Add a New Post";
+    }
+  }
+
   if (user) {
     return (
       <div>
-        <h1>{updateBio ? "Update Profile Pic and Bio" : "Add a New Post"}</h1>
+        <h1>{titlePage()}</h1>
         {!picUpload && (
           <div
             className="preview border add-photo"
