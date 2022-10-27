@@ -44,8 +44,8 @@ function ProfileInfo({ user, updateBio, setUpdateBio }) {
     }
   }, [user]);
 
-  function update(){
-    setUpdateBio(prevState => !prevState);
+  function update() {
+    setUpdateBio((prevState) => !prevState);
   }
 
   if (user) {
@@ -56,10 +56,7 @@ function ProfileInfo({ user, updateBio, setUpdateBio }) {
         <div className="user-personal">
           <p>This is the info about person</p>
           <div className="center-btn">
-            <button
-              className="log-in full-width"
-              onClick={update}
-            >
+            <button className="log-in full-width" onClick={update}>
               Edit Profile
             </button>
           </div>

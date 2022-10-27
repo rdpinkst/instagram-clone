@@ -13,6 +13,7 @@ import {
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
+
 function AddPic({
   user,
   setUser,
@@ -27,6 +28,52 @@ function AddPic({
   const [inputInfo, setInputInfo] = useState("");
   const [docId, setDocId] = useState("");
 
+  const newInfo = {
+    id: docId,
+    bio: inputInfo,
+  };
+
+  const updateBioInfo = {
+    bio: inputInfo,
+  }
+
+  const newPostInfo = {
+    captions: inputInfo,
+    id: docId,
+    comments: [],
+    likes: [],
+    timeStamp: serverTimestamp(),
+  }
+
+  const newUserData = {
+    userId: user.uid,
+    profilePic: picUpload,
+    followers: [],
+    following: [],
+    bio: "",
+    userName: user.displayName,
+    dateMember: serverTimestamp(),
+  }
+
+  const newPostData = {
+    userId: user.uid,
+    picUrl: picUpload,
+    userName: user.displayName,
+  }
+  //need to figure out how to get pic
+  function addDocument(collectionName, documentData){
+    const userRef = collection(db, collectionName);
+
+              addDoc(userRef, documentData)
+                .then((res) => {
+                  console.log("User collection started");
+                  setDocId(res.id);
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
+  }
+
   function getPicUrl(e) {
     const filePic = e.target.files[0];
     const picUrl = URL.createObjectURL(filePic);
@@ -36,6 +83,7 @@ function AddPic({
     uploadBytes(storageRef, filePic).then((snapshot) => {
       console.log("Uploaded");
       getDownloadURL(storageRef).then((url) => {
+        setPicUpload(url);
         if (newBio) {
           updateProfile(auth.currentUser, {
             photoURL: url,
@@ -65,22 +113,42 @@ function AddPic({
               console.log(error.message);
             });
         } else {
-          const postRef = collection(db, "post");
+          addDocument("post", newPostData);
+          // const postRef = collection(db, "post");
 
-          addDoc(postRef, {
-            userId: user.uid,
-            picUrl: url,
-            userName: user.displayName,
-          })
-            .then((res) => {
-              setDocId(res.id);
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
+          // addDoc(postRef, {
+          //   userId: user.uid,
+          //   picUrl: url,
+          //   userName: user.displayName,
+          // })
+          //   .then((res) => {
+          //     setDocId(res.id);
+          //   })
+          //   .catch((error) => {
+          //     console.log(error.message);
+          //   });
         }
       });
     });
+  }
+
+  function updateDocument(collection, documentId, infoUpdate) {
+    const collectionRef = doc(db, collection, documentId);
+
+    updateDoc(collectionRef, infoUpdate)
+      .then(() => {
+        setPicUpload("");
+        setInputInfo("");
+        setDocId("");
+        if (newBio) {
+          setNewBio((prevState) => !prevState);
+        } else if (updateBio) {
+          setUpdateBio((prevState) => !prevState);
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   //Add docId to post data, along with caption about post, comments array, likes array
@@ -88,62 +156,18 @@ function AddPic({
     e.preventDefault();
     console.log("submitted");
     if (newBio) {
-      const userRef = doc(db, "users", docId);
-
-      updateDoc(userRef, {
-        id: docId,
-        bio: inputInfo,
-      })
-        .then(() => {
-          setPicUpload("");
-          setInputInfo("");
-          setDocId("");
-          setNewBio((prevState) => !prevState);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      updateDocument("users", docId, newInfo);
     } else if (updateBio) {
-      const userRef = doc(db, "users", userInfo.id);
-
-      updateDoc(userRef, {
-        bio: inputInfo,
-      })
-        .then(() => {
-          setPicUpload("");
-          setInputInfo("");
-          setUpdateBio((prevState) => !prevState);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      updateDocument("users", userInfo.id, updateBioInfo);
     } else {
-      const newPostRef = doc(db, "post", docId);
-
-      updateDoc(newPostRef, {
-        captions: inputInfo,
-        id: docId,
-        comments: [],
-        likes: [],
-        timeStamp: serverTimestamp(),
-      })
-        .then(() => {
-          console.log("Updated");
-          alert("Picture Info Added");
-          setPicUpload("");
-          setInputInfo("");
-          setDocId("");
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      updateDocument("post", docId, newPostInfo);
     }
   }
 
-  function titlePage(){
-    if(newBio){
+  function titlePage() {
+    if (newBio) {
       return "Upload a Profile Pic and Bio information";
-    } else if(updateBio){
+    } else if (updateBio) {
       return "Update Profile Pic and Bio";
     } else {
       return "Add a New Post";
