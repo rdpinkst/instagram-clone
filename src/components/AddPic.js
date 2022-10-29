@@ -13,7 +13,6 @@ import {
 import { updateProfile } from "firebase/auth";
 import { storage, auth, db } from "../firebase.js";
 
-
 function AddPic({
   user,
   setUser,
@@ -35,7 +34,7 @@ function AddPic({
 
   const updateBioInfo = {
     bio: inputInfo,
-  }
+  };
 
   const newPostInfo = {
     captions: inputInfo,
@@ -43,35 +42,33 @@ function AddPic({
     comments: [],
     likes: [],
     timeStamp: serverTimestamp(),
-  }
+  };
 
   const newUserData = {
     userId: user.uid,
-    profilePic: picUpload,
     followers: [],
     following: [],
     bio: "",
     userName: user.displayName,
     dateMember: serverTimestamp(),
-  }
+  };
 
   const newPostData = {
     userId: user.uid,
-    picUrl: picUpload,
     userName: user.displayName,
-  }
+  };
   //need to figure out how to get pic
-  function addDocument(collectionName, documentData){
+  function addDocument(collectionName, documentData, url) {
     const userRef = collection(db, collectionName);
 
-              addDoc(userRef, documentData)
-                .then((res) => {
-                  console.log("User collection started");
-                  setDocId(res.id);
-                })
-                .catch((error) => {
-                  console.log(error.message);
-                });
+    addDoc(userRef, { ...documentData, picUrl: url })
+      .then((res) => {
+        console.log("User collection started");
+        setDocId(res.id);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   function getPicUrl(e) {
@@ -90,43 +87,13 @@ function AddPic({
           })
             .then(() => {
               setUser(auth.currentUser);
-              const userRef = collection(db, "users");
-
-              addDoc(userRef, {
-                userId: user.uid,
-                profilePic: url,
-                followers: [],
-                following: [],
-                bio: "",
-                userName: user.displayName,
-                dateMember: serverTimestamp(),
-              })
-                .then((res) => {
-                  console.log("User collection started");
-                  setDocId(res.id);
-                })
-                .catch((error) => {
-                  console.log(error.message);
-                });
+              addDocument("users", newUserData, url);
             })
             .catch((error) => {
               console.log(error.message);
             });
         } else {
-          addDocument("post", newPostData);
-          // const postRef = collection(db, "post");
-
-          // addDoc(postRef, {
-          //   userId: user.uid,
-          //   picUrl: url,
-          //   userName: user.displayName,
-          // })
-          //   .then((res) => {
-          //     setDocId(res.id);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error.message);
-          //   });
+          addDocument("post", newPostData, url);
         }
       });
     });
