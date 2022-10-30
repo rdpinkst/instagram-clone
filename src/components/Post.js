@@ -4,7 +4,7 @@ import { mdiHeartOutline, mdiMessageOutline } from "@mdi/js";
 import Comment from "./Comment";
 import PostComment from "./PostComment";
 
-function Post({ postData, user }) {
+function Post({ post }) {
   const [liked, setLiked] = useState(false);
 
   const styleLike = {
@@ -15,12 +15,12 @@ function Post({ postData, user }) {
     setLiked((prevState) => !prevState);
   }
 
-  const comments = postData.comments.map((comment) => {
+  const comments = post.comment?.map((post) => {
     return (
       <PostComment
-        key={comment.uid}
-        userName={comment.userName}
-        message={comment.message}
+        key={post.uid}
+        userName={post.userName}
+        message={post.message}
       />
     );
   });
@@ -29,7 +29,7 @@ function Post({ postData, user }) {
     <div className="postContainer">
       <img
         className="postImage"
-        src={`/${postData.picUrl}`}
+        src={post.picUrl}
         alt="spanish learning"
       />
       <div className="like-comment">
@@ -44,8 +44,8 @@ function Post({ postData, user }) {
       </div>
 
       <div className="one-line">
-        <h3>{user.displayName}</h3>
-        <p className="description-post">{postData.caption}</p>
+        <h3>{post.userName}</h3>
+        <p className="description-post">{post.captions}</p>
       </div>
       {comments}
       <Comment />
