@@ -63,7 +63,7 @@ function AddPic({
 
     addDoc(userRef, { ...documentData, picUrl: url })
       .then((res) => {
-        console.log("User collection started");
+        console.log("Added document to " + collectionName);
         setDocId(res.id);
       })
       .catch((error) => {
@@ -92,6 +92,16 @@ function AddPic({
             .catch((error) => {
               console.log(error.message);
             });
+        } else if (updateBio) {
+          updateProfile(auth.currentUser, {
+            photoURL: url,
+          })
+            .then(() => {
+              updateDocument("users", userInfo.id, { picUrl: url });
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
         } else {
           addDocument("post", newPostData, url);
         }
@@ -104,14 +114,7 @@ function AddPic({
 
     updateDoc(collectionRef, infoUpdate)
       .then(() => {
-        setPicUpload("");
-        setInputInfo("");
-        setDocId("");
-        if (newBio) {
-          setNewBio((prevState) => !prevState);
-        } else if (updateBio) {
-          setUpdateBio((prevState) => !prevState);
-        }
+        console.log("updated information");
       })
       .catch((error) => {
         console.log(error.message);
@@ -128,6 +131,14 @@ function AddPic({
       updateDocument("users", userInfo.id, updateBioInfo);
     } else {
       updateDocument("post", docId, newPostInfo);
+    }
+    setPicUpload("");
+    setInputInfo("");
+    setDocId("");
+    if (newBio) {
+      setNewBio((prevState) => !prevState);
+    } else if (updateBio) {
+      setUpdateBio((prevState) => !prevState);
     }
   }
 

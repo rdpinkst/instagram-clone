@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { query, where, collection, onSnapshot } from "firebase/firestore";
 import Post from "./Post";
 
 
@@ -19,7 +20,29 @@ const firstPost = {
 };
 
 function Homepage({ user }) {
-  const [postData, setPostData] = useState(firstPost);
+  const [postData, setPostData] = useState([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "post"),
+      where("userId", "!=", user.uid)
+    );
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        console.log("running");
+        const postsArr = [];
+        snapshot.forEach((doc) => {
+          postsArr.push({ ...doc.data() });
+        });
+        setPostData(postsArr);
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    );
+    return () => unsubscribe();
+  }, [user.uid])
 
   if (user) {
     return (
