@@ -31,7 +31,7 @@ function Homepage({ user }) {
   const postsView = postData?.map((post, index) => {
     return (
       <div key={index} className="content">
-        <Post post={post} />
+        <Post post={post} user={user} />
       </div>
     );
   });

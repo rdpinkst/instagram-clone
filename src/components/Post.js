@@ -3,8 +3,9 @@ import Icon from "@mdi/react";
 import { mdiHeartOutline, mdiMessageOutline } from "@mdi/js";
 import Comment from "./Comment";
 import PostComment from "./PostComment";
+import brokenPic from "../pictures/brokenLink.jpeg";
 
-function Post({ post }) {
+function Post({ post, user }) {
   const [liked, setLiked] = useState(false);
 
   const styleLike = {
@@ -15,7 +16,7 @@ function Post({ post }) {
     setLiked((prevState) => !prevState);
   }
 
-  const comments = post.comment?.map((post) => {
+  const comments = post.comments?.map((post) => {
     return (
       <PostComment
         key={post.uid}
@@ -29,7 +30,7 @@ function Post({ post }) {
     <div className="postContainer">
       <img
         className="postImage"
-        src={post.picUrl}
+        src={post.picUrl ? post.picUrl : brokenPic}
         alt="spanish learning"
       />
       <div className="like-comment">
@@ -48,7 +49,7 @@ function Post({ post }) {
         <p className="description-post">{post.captions}</p>
       </div>
       {comments}
-      <Comment />
+      <Comment post={post} user={user}/>
     </div>
   );
 }
