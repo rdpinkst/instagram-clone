@@ -3,7 +3,6 @@ import Profile from "./Profile";
 import TilePictures from "./TilePictures";
 import PictureSelectView from "./PictureSelectView";
 import {
-  doc,
   query,
   onSnapshot,
   where,
@@ -13,7 +12,7 @@ import {
 import { db } from "../firebase";
 import { Navigate } from "react-router-dom";
 
-function ProfileInfo({ user, updateBio, setUpdateBio }) {
+function ProfileInfo({ user, updateBio, setUpdateBio, profileToView }) {
   const [picUrl, setPicUrl] = useState("");
   const [deletePic, setDeletePic] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -24,7 +23,7 @@ function ProfileInfo({ user, updateBio, setUpdateBio }) {
       const q = query(
         collection(db, "post"),
         orderBy("timeStamp", "desc"),
-        where("userId", "==", user.uid)
+        where("userName", "==", profileToView)
       );
       const unsubscribe = onSnapshot(
         q,
@@ -42,7 +41,7 @@ function ProfileInfo({ user, updateBio, setUpdateBio }) {
       );
       return () => unsubscribe();
     }
-  }, [user]);
+  }, [user, profileToView]);
 
   function update() {
     setUpdateBio((prevState) => !prevState);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
-function HomeNavbar({ setUser, updateBio, setUpdateBio }) {
+function HomeNavbar({ user, setUser, updateBio, setUpdateBio, setProfileToView }) {
   const logOut = async () => {
     signOut(auth)
       .then(() => {
@@ -20,6 +20,7 @@ function HomeNavbar({ setUser, updateBio, setUpdateBio }) {
     if(updateBio){
       setUpdateBio(prevState => !prevState);
     }
+    setProfileToView(user.displayName);
     
   }
 

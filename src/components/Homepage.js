@@ -4,7 +4,7 @@ import { query, where, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import Post from "./Post";
 
-function Homepage({ user }) {
+function Homepage({ user, setProfileToView }) {
   const [postData, setPostData] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Homepage({ user }) {
   const postsView = postData?.map((post, index) => {
     return (
       <div key={index} className="content">
-        <Post post={post} user={user} />
+        <Post post={post} user={user} setProfileToView={setProfileToView} />
       </div>
     );
   });

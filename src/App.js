@@ -15,17 +15,17 @@ function App() {
   const [userInfo, setUserInfo] = useState("");
   const [newBio, setNewBio] = useState(false);
   const [updateBio, setUpdateBio] = useState(false);
+  const [profileToView, setProfileToView] = useState("");
 
   //Snapshot working and need to set to state
   useEffect(() => {
     if (user && !newBio) {
       const q = query(collection(db, "users"), where("userId", "==", user.uid));
       const unsubscribe = onSnapshot(q, (snapshot) => {
-
         console.log(snapshot.docs[0].data());
         setUserInfo(snapshot.docs[0].data());
-      })
-     return () => unsubscribe()
+      });
+      return () => unsubscribe();
     }
   }, [user, newBio]);
 
@@ -34,9 +34,11 @@ function App() {
       <BrowserRouter>
         {user && (
           <HomeNavbar
+            user={user}
             setUser={setUser}
             updateBio={updateBio}
             setUpdateBio={setUpdateBio}
+            setProfileToView={setProfileToView}
           />
         )}
         <Routes>
@@ -47,7 +49,12 @@ function App() {
               <SignUp user={user} setUser={setUser} setNewBio={setNewBio} />
             }
           />
-          <Route path="/home" element={<Homepage user={user} />} />
+          <Route
+            path="/home"
+            element={
+              <Homepage user={user} setProfileToView={setProfileToView} />
+            }
+          />
           <Route
             path="/addpic"
             element={
@@ -70,6 +77,7 @@ function App() {
                 user={user}
                 updateBio={updateBio}
                 setUpdateBio={setUpdateBio}
+                profileToView={profileToView}
               />
             }
           />

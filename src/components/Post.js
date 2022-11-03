@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Navigate, Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiHeartOutline, mdiMessageOutline } from "@mdi/js";
 import Comment from "./Comment";
 import PostComment from "./PostComment";
 import brokenPic from "../pictures/brokenLink.jpeg";
 
-function Post({ post, user }) {
+function Post({ post, user, setProfileToView }) {
   const [liked, setLiked] = useState(false);
 
   const styleLike = {
@@ -16,12 +17,17 @@ function Post({ post, user }) {
     setLiked((prevState) => !prevState);
   }
 
+  function viewProfile() {
+    setProfileToView(post.userName);
+  }
+
   const comments = post.comments?.map((post) => {
     return (
       <PostComment
         key={post.uid}
         userName={post.userName}
         message={post.message}
+        setProfileToView={setProfileToView}
       />
     );
   });
@@ -45,11 +51,15 @@ function Post({ post, user }) {
       </div>
 
       <div className="one-line">
-        <h3>{post.userName}</h3>
+        <h3>
+          <Link to="/profile" onClick={viewProfile}>
+            {post.userName}
+          </Link>
+        </h3>
         <p className="description-post">{post.captions}</p>
       </div>
       {comments}
-      <Comment post={post} user={user}/>
+      <Comment post={post} user={user} setProfileToView={setProfileToView} />
     </div>
   );
 }
