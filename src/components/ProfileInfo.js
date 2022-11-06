@@ -43,8 +43,16 @@ function ProfileInfo({ user, updateBio, setUpdateBio, profileToView }) {
     }
   }, [user, profileToView]);
 
-  function update() {
-    setUpdateBio((prevState) => !prevState);
+  function update(e) {
+    console.log(e.target.innerHTML);
+    if(e.target.innerHTML === "Edit Profile"){
+      setUpdateBio((prevState) => !prevState);
+    } else {
+      //add to followers
+      //add to following
+      console.log("following");
+    }
+    
   }
 
   if (user) {
@@ -56,7 +64,7 @@ function ProfileInfo({ user, updateBio, setUpdateBio, profileToView }) {
           <p>This is the info about person</p>
           <div className="center-btn">
             <button className="log-in full-width" onClick={update}>
-              Edit Profile
+              {user.displayName === profileToView ? "Edit Profile" : "Follow"}
             </button>
           </div>
         </div>
