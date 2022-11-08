@@ -78,6 +78,7 @@ function App() {
                 updateBio={updateBio}
                 setUpdateBio={setUpdateBio}
                 profileToView={profileToView}
+                userInfo={userInfo}
               />
             }
           />

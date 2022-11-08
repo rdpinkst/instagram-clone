@@ -8,11 +8,13 @@ import {
   where,
   collection,
   orderBy,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { Navigate } from "react-router-dom";
 
-function ProfileInfo({ user, updateBio, setUpdateBio, profileToView }) {
+function ProfileInfo({ user, updateBio, setUpdateBio, profileToView, userInfo }) {
   const [picUrl, setPicUrl] = useState("");
   const [deletePic, setDeletePic] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -48,8 +50,28 @@ function ProfileInfo({ user, updateBio, setUpdateBio, profileToView }) {
     if(e.target.innerHTML === "Edit Profile"){
       setUpdateBio((prevState) => !prevState);
     } else {
+      // const q = query(
+      //           collection(db, "users"),
+      //           where("userName", "==", profileToView));
+              
+      // updateDoc(q, {
+      //   followers: [user.displayName]
+      // }).then(() => {
+      //   console.log("Following");
+      // }).catch((error) => {
+      //   console.log(error.message);
+      // })
       //add to followers
       //add to following
+      const userRef = doc(db, "users", userInfo.id);
+
+      updateDoc(userRef, {
+        following: [profileToView],
+      }).then(() => {
+        console.log("Following " + profileToView);
+      }).catch((error) => {
+        console.log(error.message);
+      })
       console.log("following");
     }
     
