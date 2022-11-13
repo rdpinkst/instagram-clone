@@ -10,6 +10,7 @@ import {
   orderBy,
   updateDoc,
   doc,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { Navigate } from "react-router-dom";
@@ -50,10 +51,25 @@ function ProfileInfo({ user, updateBio, setUpdateBio, profileToView, userInfo })
     if(e.target.innerHTML === "Edit Profile"){
       setUpdateBio((prevState) => !prevState);
     } else {
-      // const q = query(
-      //           collection(db, "users"),
-      //           where("userName", "==", profileToView));
-              
+      const q = query(
+                collection(db, "users"),
+                where("userName", "==", profileToView));
+                console.log(q)
+      getDocs(q)  
+      .then((docs) => {
+        docs.forEach((document) => {
+          console.log(document.id)
+          const userRef = doc(db, "users", document.id);
+          updateDoc(userRef, {
+            followers: [user.displayName],
+          }).then(() => {
+          console.log("New follower");
+          }).catch((error) => {
+            console.log(error.message);
+          })
+        })
+        
+      })
       // updateDoc(q, {
       //   followers: [user.displayName]
       // }).then(() => {
@@ -81,9 +97,9 @@ function ProfileInfo({ user, updateBio, setUpdateBio, profileToView, userInfo })
     return (
       <div className="editable-profile">
         {updateBio && <Navigate to="/addpic" replace={true} />}
-        <Profile user={user} />
+        <Profile user={user} userInfo={userInfo}/>
         <div className="user-personal">
-          <p>This is the info about person</p>
+          <p>{userInfo.bio}</p>
           <div className="center-btn">
             <button className="log-in full-width" onClick={update}>
               {user.displayName === profileToView ? "Edit Profile" : "Follow"}
